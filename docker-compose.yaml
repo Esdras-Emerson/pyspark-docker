@@ -1,0 +1,8 @@
+version: "3"
+services:
+  pyspark:
+    image: "jupyter/all-spark-notebook"
+    volumes:
+      - /home/ef/Downloads/pyspark:/home
+    ports:
+      - 8888:8888
