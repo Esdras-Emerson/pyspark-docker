@@ -170,7 +170,13 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
 
 ### Parte 3: Performance e Otimização
 
-- **Particionamento:** Explicação sobre como o particionamento pode melhorar a performance de operações de leitura/escrita e exemplo prático de particionamento de um DataFrame:
+- **Particionamento:** Explicação sobre como o particionamento pode melhorar a performance de operações de leitura/escrita:
+    
+    **O particionamento de dados é uma técnica que divide um conjunto de dados grande em partes menores e gerenciáveis, chamadas de "partições"**
+    **Traz melhoria na leitura por conseguir acessar diretamente a partição em questão, na escrita o sistema pode escrever diretamente na partição correta**
+
+    
+    Exemplo prático de particionamento de um DataFrame:
 
     ```python
     # Particionando o DataFrame pela coluna "Occupation"
@@ -180,7 +186,12 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
     partitioned_df.write.partitionBy("Occupation").parquet("/caminho/para/saida")
     ```
 
-- **Broadcast Join:** Descrição e exemplo de como usar Broadcast Join para otimizar operações de join em PySpark:
+- **Broadcast Join:** Descrição:
+
+    **Processo de otimização na execução de operações de junção (join) em grandes volumes de dados**
+    **Ajuda na melhor performace na redução de movimentação de dados, junção local do nó e escalabilidade**
+
+    Exemplo de como usar Broadcast Join para otimizar operações de join em PySpark:
 
     ```python
     from pyspark.sql.functions import broadcast
@@ -208,7 +219,7 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
     csv_df.write.parquet("/caminho/para/saida_parquet")
     ```
 
-- **Integração com Hadoop:** Exemplos de leitura e escrita de dados no Hadoop HDFS usando PySpark (exemplo genérico):
+- **Integração com Hadoop:** Exemplos de leitura e escrita de dados no Hadoop HDFS usando PySpark (genérico):
 
     ```python
     # Leitura de um arquivo do HDFS
@@ -224,7 +235,7 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
 
     ```python
     # Leitura do arquivo de log
-    log_df = spark.read.csv("/caminho/para/seu/log.csv", header=True, inferSchema=True)
+    log_df = spark.read.csv("/logs.csv", header=True, inferSchema=True)
     ```
 
 - **Análise de Logs:** Conte o número de ações por usuário e identifique os 10 usuários mais ativos:
@@ -236,7 +247,7 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
     # Identificação dos 10 usuários mais ativos
     top_users =
 
- user_action_count.orderBy("count", ascending=False).limit(10)
+    user_action_count.orderBy("count", ascending=False).limit(10)
 
     # Mostrando os resultados
     top_users.show()
@@ -246,6 +257,9 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
 
     ```python
     # Salvando o resultado em um arquivo CSV
-    top_users.write.csv("/caminho/para/saida_usuarios_ativos")
+    top_users.write.csv("../saida_usuarios_ativos")
     ```
+
+
+
 
