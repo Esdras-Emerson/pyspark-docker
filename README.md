@@ -183,7 +183,7 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
     partitioned_df = df.repartition(4, "Occupation")
 
     # Salvando o DataFrame particionado em disco (apenas exemplo, não executa no Docker local)
-    partitioned_df.write.partitionBy("Occupation").parquet("/caminho/para/saida")
+    partitioned_df.write.partitionBy("Occupation").parquet("../saida")
     ```
 
 - **Broadcast Join:** Descrição:
@@ -213,20 +213,20 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
 
     ```python
     # Leitura de um arquivo CSV
-    csv_df = spark.read.csv("/caminho/para/seu/arquivo.csv", header=True, inferSchema=True)
+    csv_df = spark.read.csv("../arquivo.csv", header=True, inferSchema=True)
 
     # Salvando o DataFrame em formato Parquet
-    csv_df.write.parquet("/caminho/para/saida_parquet")
+    csv_df.write.parquet("../saida_parquet")
     ```
 
 - **Integração com Hadoop:** Exemplos de leitura e escrita de dados no Hadoop HDFS usando PySpark (genérico):
 
     ```python
     # Leitura de um arquivo do HDFS
-    hdfs_df = spark.read.csv("hdfs:///caminho/para/seu/arquivo.csv", header=True, inferSchema=True)
+    hdfs_df = spark.read.csv("hdfs:///arquivo.csv", header=True, inferSchema=True)
 
     # Salvando o DataFrame de volta no HDFS em formato Parquet
-    hdfs_df.write.parquet("hdfs:///caminho/para/saida_parquet")
+    hdfs_df.write.parquet("hdfs:////saida_parquet")
     ```
 
 ### Parte 5: Problema de Caso - Processamento de Logs
