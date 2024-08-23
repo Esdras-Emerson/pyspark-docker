@@ -1,6 +1,3 @@
-Aqui está a versão final do README adaptado e organizado para o projeto "PySpark-Docker: Ambiente de Desenvolvimento com PySpark e Jupyter":
-
----
 
 # PySpark-Docker: Ambiente de Desenvolvimento com PySpark e Jupyter
 
@@ -251,9 +248,4 @@ Abra o notebook **"teste de conhecimento.ipynb"** na interface do Jupyter em seu
     # Salvando o resultado em um arquivo CSV
     top_users.write.csv("/caminho/para/saida_usuarios_ativos")
     ```
-
----
-
-Esse README oferece uma visão abrangente e detalhada das funcionalidades e capacidades do ambiente de desenvolvimento configurado com PySpark e Docker, permitindo que qualquer usuário siga as instruções de forma clara e direta para executar e explorar os notebooks de teste.
-
 
