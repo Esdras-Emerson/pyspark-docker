@@ -1,13 +1,24 @@
 PySpark-Docker: Ambientes de Desenvolvimento com PySpark e Jupyter
 
 Este repositório contém um ambiente pré-configurado para executar PySpark com Jupyter Notebook usando Docker. O objetivo é fornecer uma plataforma prática e replicável para testes e desenvolvimento de projetos de engenharia de dados.
-Instruções para Configuração do Ambiente
 
-Passo 1: Instalar Docker Desktop
+Instruções para Configuração do Ambiente:
+
+
+Passo 1: Clonar o Repositório
+
+Primeiro, clone este repositório em sua máquina local:
+
+
+    git clone https://github.com/Esdras-Emerson/pyspark-docker.git
+
+    cd pyspark-docker
+
+Passo 2: Instalar Docker Desktop
 
     Certifique-se de ter o Docker instalado em sua máquina. Se ainda não o fez, baixe e instale o Docker Desktop.
 
-Passo 2: Preparar o Projeto
+Passo 3: Preparar o Projeto
 
     Criar um Diretório: Crie uma nova pasta em seu sistema para armazenar os arquivos do projeto.
 
@@ -16,20 +27,20 @@ Passo 2: Preparar o Projeto
 
     Adicionar o Arquivo docker-compose.yaml: Coloque o arquivo docker-compose.yaml no diretório criado. Esse arquivo define os serviços necessários para rodar PySpark e Jupyter Notebook em contêineres Docker.
 
-Passo 3: Configurar o Volume
+Passo 4: Configurar o Volume
 
     Edite o caminho do volume no arquivo docker-compose.yaml para apontar para o diretório onde seus notebooks e dados estão armazenados:
 
     volumes:
-    - /caminho/para/seu/diretorio:/home/jovyan/work
+    - /caminho/para/seu/diretorio:/home/
 
-Passo 4: Iniciar o Ambiente
+Passo 5: Iniciar o Ambiente
 
     Com o arquivo docker-compose.yaml configurado, você pode iniciar os contêineres com o seguinte comando:
 
     docker compose up
 
-Passo 5: Acessar o Jupyter Notebook
+Passo 6: Acessar o Jupyter Notebook
 
     Depois que os contêineres estiverem rodando, abra o navegador e acesse a URL:
 
@@ -38,18 +49,66 @@ Passo 5: Acessar o Jupyter Notebook
 
     Dica: O token é exibido no terminal onde você executou o docker compose up.
 
-Passo 6: Executar o Notebook
+Passo 7: Executar o Notebook
 
 Abra o notebook "teste de conhecimento.ipynb" na interface do Jupyter em seu navegador. O arquivo com extensão .ipynb está dentro da pasta "jovyan" e execute as células conforme as instruções.
 
 
-Descrição do Caso de Estudo
+Descrição do Caso:
+
 Parte 1: Manipulação de Dados
 
     - Criação de DataFrame: Crie um DataFrame PySpark com um conjunto de dados fictício.
+
+        from pyspark.sql import SparkSession
+
+        # Criando uma sessão do Spark
+        spark = SparkSession.builder.appName("PySpark Interview Test").getOrCreate()
+
+        # Dados fornecidos
+        data = [
+            ("Alice", 34, "Data Scientist"),
+            ("Bob", 45, "Data Engineer"),
+            ("Cathy", 29, "Data Analyst"),
+            ("David", 35, "Data Scientist")
+        ]
+        columns = ["Name", "Age", "Occupation"]
+
+    # Criando o DataFrame
+    df = spark.createDataFrame(data, schema=columns)
+
+    # Mostrando o DataFrame
+    df.show()
+
     - Filtragem e Seleção: Selecione as colunas "Name" e "Age" e filtre as linhas onde "Age" é maior que 30.
+
+        # Seleção das colunas "Name" e "Age"
+    selected_df = df.select("Name", "Age")
+
+    # Filtragem onde "Age" é maior que 30
+    filtered_df = selected_df.filter(selected_df.Age > 30)
+
+    # Mostrando o DataFrame filtrado
+    filtered_df.show()
+
     - Agrupamento e Agregação: Agrupe os dados por "Occupation" e calcule a média de idade para cada grupo.
+
+        from pyspark.sql.functions import avg
+
+    # Agrupamento por "Occupation" e cálculo da média de "Age"
+    grouped_df = df.groupBy("Occupation").agg(avg("Age").alias("Average_Age"))
+
+    # Mostrando o DataFrame agrupado
+    grouped_df.show()
+
     - Ordenação: Ordene os resultados pela média de idade em ordem decrescente.
+# Ordenando em ordem decrescente pela média de "Age"
+sorted_df = grouped_df.orderBy(grouped_df.Average_Age.desc())
+
+# Mostrando o DataFrame ordenado
+sorted_df.show()
+
+
 
 Parte 2: Funções Avançadas
 
